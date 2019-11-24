@@ -45,3 +45,14 @@ def makeDict(result_list):
             result_dict[line[4]][line[1]] = line[2]
 
     return result_dict
+
+def decomp(net):
+    """ Decompose XDC net name into sections.
+    """
+    
+    pt_netname = Word(alphanums) + Suppress('_') + restOfLine
+    pt_netnamebus = Word(alphanums) + Suppress('_') + Word(alphanums+'_') + \
+                    Suppress('[') + Word(nums) + Suppress(']')
+    parser = (pt_netnamebus | pt_netname)
+    
+    return parser.parseString(net)
